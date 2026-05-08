@@ -20,6 +20,7 @@ html{
   gap: 1rem;
   padding-block: 1rem;
   padding-inline: 3rem;
+  flex-wrap: wrap;
 }
 
 .note{
@@ -28,4 +29,12 @@ html{
   border-radius: 0.7rem;
   width: 20rem;
   color: aliceblue;
+}
+
+.note-create-form{
+  display: flex;
+  gap: 1rem;
+  padding-block: 1rem;
+  padding-inline: 3rem;
+  height: 4rem;
 }
