@@ -34,6 +34,14 @@ function App() {
     
   }
 
+  function handleDelete(id){
+    axios.delete('http://localhost:3000/api/notes/'+id)
+    .then(res =>{
+      console.log(id)
+      fetchNotes()
+    })
+  }
+
   return (
     <>
 
@@ -51,6 +59,7 @@ function App() {
             return <div className="note">
               <h1>{note.title}</h1>
               <p>{note.description}</p>
+              <button onClick={() => handleDelete(note._id)}>Delete</button>
           </div>
           })
         }
