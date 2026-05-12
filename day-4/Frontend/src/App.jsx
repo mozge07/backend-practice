@@ -6,7 +6,7 @@ function App() {
   const [notes, setnotes] = useState([])
 
   function fetchNotes(){
-    axios.get("http://localhost:3000/api/notes")
+    axios.get("https://frontend-integration-in-backend.onrender.com/")
     .then((res)=>{
       setnotes(res.data.note)
     })
@@ -23,7 +23,7 @@ function App() {
 
     console.log(title.value, description.value);
 
-    axios.post("http://localhost:3000/api/notes", {
+    axios.post("https://frontend-integration-in-backend.onrender.com/", {
       title: title.value,
       description: description.value
     })
@@ -35,7 +35,7 @@ function App() {
   }
 
   function handleDelete(id){
-    axios.delete('http://localhost:3000/api/notes/'+id)
+    axios.delete('https://frontend-integration-in-backend.onrender.com/'+id)
     .then(res =>{
       console.log(id)
       fetchNotes()
