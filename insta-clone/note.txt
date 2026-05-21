@@ -5,3 +5,10 @@ user schema = {
     profileImg: string,
     bio: string
 }
+
+post schema = {
+    caption: string,
+    img_url: string,
+    user: userId,
+    
+}
