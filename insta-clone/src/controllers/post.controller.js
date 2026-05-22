@@ -2,8 +2,6 @@ const postModel = require("../models/post.model");
 const ImageKit = require("@imagekit/nodejs");
 const { toFile } = require("@imagekit/nodejs");
 const jwt = require("jsonwebtoken");
-const { post } = require("../routes/post.routes");
-const { Folders } = require("@imagekit/nodejs/resources.js");
 
 const imageKit = new ImageKit({
   privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
