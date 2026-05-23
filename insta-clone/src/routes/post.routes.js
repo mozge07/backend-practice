@@ -15,4 +15,16 @@ postRouter.post(
   postController.createPostController,
 );
 
+/**
+ * GET /api/post/ [protected]
+ * get all the post of user is login with
+ */
+postRouter.get("/", postController.getPostController);
+
+/**
+ * GET /api/post/details/:postId
+ * used to fetch an specific post of the user which is currently loged in by prvideing postId
+ */
+postRouter.get("/details/:postId", postController.getPostDetailsController);
+
 module.exports = postRouter;

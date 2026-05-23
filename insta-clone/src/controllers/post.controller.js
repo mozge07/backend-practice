@@ -48,4 +48,83 @@ async function createPostController(req, res) {
   });
 }
 
-module.exports = { createPostController };
+async function getPostController(req, res) {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json({
+      message: "Invalid token, Unauthorized access",
+    });
+  }
+
+  let decoded;
+
+  try {
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    return res.status(401).json({
+      message: "Unauthorized access",
+    });
+  }
+
+  const userId = decoded.id;
+
+  const posts = await postModel.find({
+    user: userId,
+  });
+
+  res.status(201).json({
+    message: "post fetched successfully",
+    posts,
+  });
+}
+
+async function getPostDetailsController(req, res) {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json({
+      message: "Unathorized access",
+    });
+  }
+
+  let decoded;
+
+  try {
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    return res.status(401).json({
+      message: "Invalid Token",
+    });
+  }
+
+  const userId = decoded.id;
+  const postId = req.params.postId;
+
+  const post = await postModel.findById(postId);
+
+  if (!post) {
+    return res.status(404).json({
+      message: "post not found",
+    });
+  }
+
+  const isUserValid = post.user.toString() === userId;
+
+  if (!isUserValid) {
+    return res.status(403).json({
+      message: "Forbidden content",
+    });
+  }
+
+  return res.status(200).json({
+    message: "post fetched successfully.",
+    post,
+  });
+}
+
+module.exports = {
+  createPostController,
+  getPostController,
+  getPostDetailsController,
+};
