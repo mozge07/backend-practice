@@ -24,4 +24,6 @@ async function identifyUser(req, res, next) {
   next();
 }
 
+/** send data of valid user into (req.user) */
+
 module.exports = identifyUser;
