@@ -5,9 +5,8 @@ const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage() });
 const identifyUser = require("../middleware/auth.middleware");
 /**
- * POST /api/posts [protected]
- * req.body = { caption, image-file}
- * api/post/
+ * @route POST /api/posts [protected]
+ * @description req.body = { caption, image-file}
  */
 postRouter.post(
   "/",
@@ -17,19 +16,29 @@ postRouter.post(
 );
 
 /**
- * GET /api/post/ [protected]
- * get all the post of user is login with
+ * @route GET /api/post/ [protected]
+ * @description get all the post of user is login with
  */
 postRouter.get("/", identifyUser, postController.getPostController);
 
 /**
- * GET /api/post/details/:postId
- * used to fetch an specific post of the user which is currently loged in by prvideing postId
+ * @route GET /api/post/details/:postId
+ * @description used to fetch an specific post of the user which is currently loged in by prvideing postId
  */
 postRouter.get(
   "/details/:postId",
   identifyUser,
   postController.getPostDetailsController,
+);
+
+/**
+ * @route POST /api/post/like/:postid
+ * @description to like a post
+ */
+postRouter.post(
+  "/like/:postId",
+  identifyUser,
+  postController.likePostController,
 );
 
 module.exports = postRouter;

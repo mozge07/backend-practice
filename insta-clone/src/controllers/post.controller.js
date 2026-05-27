@@ -1,4 +1,6 @@
+const mongoose = require("mongoose");
 const postModel = require("../models/post.model");
+const likeModel = require("../models/like.model");
 const ImageKit = require("@imagekit/nodejs");
 const { toFile } = require("@imagekit/nodejs");
 const jwt = require("jsonwebtoken");
@@ -7,6 +9,9 @@ const imageKit = new ImageKit({
   privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
 });
 
+/**
+ * @description for creating a new post
+ */
 async function createPostController(req, res) {
   const file = await imageKit.files.upload({
     file: await toFile(Buffer.from(req.file.buffer), "file"),
@@ -26,6 +31,9 @@ async function createPostController(req, res) {
   });
 }
 
+/**
+ * @description to fetch all post of user login
+ */
 async function getPostController(req, res) {
   const userId = req.user.id;
 
@@ -38,7 +46,9 @@ async function getPostController(req, res) {
     posts,
   });
 }
-
+/**
+ * @description to fetch only single post by postid of user login
+ */
 async function getPostDetailsController(req, res) {
   const userId = req.user.id;
   const postId = req.params.postId;
@@ -65,10 +75,41 @@ async function getPostDetailsController(req, res) {
   });
 }
 
+/**
+ * @description to like an specific post
+ */
+async function likePostController(req, res) {
+  const username = req.user.username;
+  const postId = req.params.postId;
+
+  const isPostLiked = await likeModel.findOne({
+    post: postId,
+    user: username,
+  });
+
+  if (isPostLiked) {
+    return res.status(400).json({
+      message: "post is already liked",
+    });
+  }
+
+  const like = await likeModel.create({
+    user: username,
+    post: postId,
+  });
+
+  res.status(201).json({
+    message: "post liked successfully",
+    like,
+  });
+}
+
 module.exports = {
   createPostController,
 
   getPostController,
 
   getPostDetailsController,
+
+  likePostController,
 };
