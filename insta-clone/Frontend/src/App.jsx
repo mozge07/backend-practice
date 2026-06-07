@@ -1,5 +1,5 @@
-import { RouterProvider } from "react-router"
-import Approutes from "./Approutes"
+import { RouterProvider } from "react-router-dom"
+import {router} from "./Approutes.jsx"
 import { AuthProvider } from "./features/auth/auth.context.jsx" 
 import './style.scss'
 
@@ -7,8 +7,8 @@ function App() {
 
   return (
     <AuthProvider>
-    <Approutes />
-    </AuthProvider>
+   <RouterProvider router={router}/>
+   </AuthProvider>
   )
 }
 
