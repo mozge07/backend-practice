@@ -12,12 +12,6 @@ const Register = () => {
   const { handleRegister, loading} = useAuth()
   const navigate = useNavigate()
 
-  if(loading){
-    return (
-      <h1>Loading.....</h1>
-    )
-  }
-
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -29,7 +23,11 @@ const Register = () => {
     
   }
 
-
+  if(loading){
+    return (
+      <h1>Loading.....</h1>
+    )
+  }
 
   return (
     <main>

@@ -11,11 +11,6 @@ const Login = () => {
   const { handleLogin, loading } = useAuth()
   const navigate = useNavigate()
 
-  if(loading){
-    return (
-      <h1>Loading.....</h1>
-    )
-  }
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -26,6 +21,12 @@ const Login = () => {
       navigate("/")
     })
   
+  }
+
+  if(loading){
+    return (
+      <h1>Loading.....</h1>
+    )
   }
 
 
