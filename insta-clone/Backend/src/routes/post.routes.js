@@ -42,7 +42,7 @@ postRouter.post(
 );
 
 /**
- * @route GET /api/post/feed
+ * @route GET /api/posts/feed
  * @description get all the post created in the DB
  * @access private
  */
