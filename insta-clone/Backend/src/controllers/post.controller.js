@@ -103,6 +103,30 @@ async function likePostController(req, res) {
     like,
   });
 }
+/**
+ * @description to unlike an specific post
+ */
+async function unlikePostController(req, res) {
+  const username = req.user.username;
+  const postId = req.params.postId;
+
+  const isLiked = await likeModel.findOne({
+    post: postId,
+    user: username,
+  });
+
+  if (!isLiked) {
+    return res.status(400).json({
+      message: "post didn't like",
+    });
+  }
+
+  await likeModel.findOneAndDelete({ _id: isLiked._id });
+
+  return res.status(200).json({
+    message: "post unliked",
+  });
+}
 
 /**
  * @description to get all post in DB
@@ -137,4 +161,6 @@ module.exports = {
   likePostController,
 
   getFeedController,
+
+  unlikePostController,
 };

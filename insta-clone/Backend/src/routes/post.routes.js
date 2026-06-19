@@ -40,6 +40,11 @@ postRouter.post(
   identifyUser,
   postController.likePostController,
 );
+postRouter.post(
+  "/unlike/:postId",
+  identifyUser,
+  postController.unlikePostController,
+);
 
 /**
  * @route GET /api/posts/feed

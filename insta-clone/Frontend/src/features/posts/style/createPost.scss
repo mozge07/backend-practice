@@ -1,0 +1,19 @@
+.post-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.post-img-label{
+    display: flex;
+    background-color: rgb(253, 253, 253);
+    color: black;
+    padding-inline: 1rem;
+    padding-block: 5rem;
+    border-radius: 1rem;
+    align-items: center;
+    justify-content: center;
+    font-size: x-large;
+    cursor: pointer;
+}
