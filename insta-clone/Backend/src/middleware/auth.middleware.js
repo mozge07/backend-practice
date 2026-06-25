@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const redis = require("../config/cache");
 
 async function identifyUser(req, res, next) {
   const token = req.cookies.token;
@@ -6,6 +7,14 @@ async function identifyUser(req, res, next) {
   if (!token) {
     return res.status(401).json({
       message: "Invalid token, Unauthorized access",
+    });
+  }
+
+  const isTokenBlacklisted = await redis.get(token);
+
+  if (isTokenBlacklisted) {
+    return res.status(401).json({
+      message: "Invalid token",
     });
   }
 
